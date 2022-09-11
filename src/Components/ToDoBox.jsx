@@ -1,7 +1,7 @@
 import ToDo from "./ToDo";
 
 const ToDoBox = () => {
-  const header = ["ToDo", "Progress", "Done"];
+  const header = ["لیست کار ها", "در حال انجام دادن", "تمام شده"];
   return (
     <section className="flex flex-col sm:flex-row justify-center items-center h-96  mt-8 ">
       {header.map((h, index) => (
