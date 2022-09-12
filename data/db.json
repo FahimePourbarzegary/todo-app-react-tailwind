@@ -1,34 +1,19 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "name": "خواندن زبان آلمانی",
-      "category": "todo"
-    },
-    {
-      "id": 2,
-      "name": "خواندن زبان فرانسه",
-      "category": "done"
-    },
-    {
-      "id": 3,
-      "name": "خواندن زبان سی شارپ",
-      "category": "todo"
-    },
-    {
-      "id": 4,
-      "name": "ورزش",
-      "category": "todo"
-    },
-    {
-      "id": 5,
-      "name": "خواندن زبان ",
-      "category": "done"
-    },
-    {
       "id": 6,
       "name": "خواندن زبان h",
-      "category": "inProgress"
+      "category": "done"
+    },
+    {
+      "name": "کار4",
+      "category": "done",
+      "id": 7
+    },
+    {
+      "name": "کار1",
+      "category": "todo",
+      "id": 8
     }
   ]
 }

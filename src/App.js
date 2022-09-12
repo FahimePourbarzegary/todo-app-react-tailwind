@@ -59,7 +59,7 @@ const App = () => {
     const selected = dragData.id;
     changeCategory(e, selected, category);
   };
-
+  
   const setTaskToCat = () => {
     setCategories({ todo: [], inProgress: [], done: [] });
     tasks.forEach((t) =>
@@ -73,6 +73,7 @@ const App = () => {
             onDragStart={handleDragStart}
             category={t.category}
             id={t.id}
+            deleteTaskHandler={()=>deleteTaskHandler(t.id)}
           />,
         ],
       }))
@@ -89,7 +90,15 @@ const App = () => {
       console.log(error);
     }
   };
-
+  const deleteTaskHandler = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/tasks/${id}`);
+      const { data } = await axios.get("http://localhost:3001/tasks");
+      setTasks(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (!categories || !tasks)
     return <p className=" text-center">درحال بارگیری اطلاعات...</p>;
   return (
