@@ -1,7 +1,7 @@
 const ToDoBox = ({ category, header, onDragOver, onDrop }) => {
   return (
     <div
-      className=" h-full bg-slate-50 w-64 m-2 flex flex-col items-center p-2 rounded-lg shadow"
+      className=" h-full bg-slate-50 w-64 m-2 flex flex-col items-center p-2 rounded-lg shadow  transition-all"
       onDragOver={onDragOver}
       onDrop={onDrop}
     >

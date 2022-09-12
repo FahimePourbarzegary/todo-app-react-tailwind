@@ -1,0 +1,8 @@
+{"tasks":[
+  { "id": 1, "name": "خواندن زبان آلمانی", "category": "todo" },
+  { "id": 2, "name": "خواندن زبان فرانسه", "category": "inProgress" },
+  { "id": 3, "name": "خواندن زبان سی شارپ", "category": "done" },
+  { "id": 4, "name": "ورزش", "category": "todo" },
+  { "id": 5, "name": "خواندن زبان ", "category": "todo" },
+  { "id": 6, "name": "خواندن زبان h", "category": "inProgress" }
+]}

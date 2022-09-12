@@ -2,21 +2,29 @@ import { useState, useEffect } from "react";
 import ToDoBox from "./Components/ToDoBox.jsx";
 import ToDoForm from "./Components/ToDoForm.jsx";
 import ToDo from "./Components/ToDo.jsx";
+import axios from "axios";
 const App = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "خواندن زبان انگلیسی", category: "todo" },
-    { id: 2, name: "خواندن زبان فرانسه", category: "inProgress" },
-    { id: 3, name: "خواندن زبان سی شارپ", category: "done" },
-    { id: 4, name: "ورزش", category: "todo" },
-    { id: 5, name: "خواندن زبان ", category: "todo" },
-    { id: 6, name: "خواندن زبان h", category: "inProgress" },
-  ]);
+  const [tasks, setTasks] = useState([]);
   const [categories, setCategories] = useState({
     todo: [],
     inProgress: [],
     done: [],
   });
   const [dragData, setDragData] = useState({});
+  useEffect(() => {
+    const getTasks = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:3001/tasks");
+        setTasks(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTasks();
+  }, []);
+  useEffect(() => {
+    setTaskToCat();
+  }, [tasks]);
 
   const handleDragStart = (e, id, category) => {
     setDragData({ id: id, category: category });
@@ -38,8 +46,8 @@ const App = () => {
     changeCategory(e, selected, category);
   };
 
-  const setTaskToCat = () => {
-    tasks.forEach((t) =>
+  const setTaskToCat = async () => {
+    await tasks.forEach((t) =>
       setCategories((category) => ({
         ...category,
         [t.category]: [
@@ -55,10 +63,8 @@ const App = () => {
       }))
     );
   };
-  useEffect(() => {
-    setTaskToCat();
-  }, []);
-  if (!categories) return <p>Loading Please Waite...</p>;
+
+  if (!categories || !tasks) return <p>Loading Please Waite...</p>;
   return (
     <div className=" bg-white h-screen w-full p-8 pb-1">
       <h1 className="text-center text-4xl ">لیست انجام کارها</h1>
