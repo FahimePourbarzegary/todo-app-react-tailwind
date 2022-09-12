@@ -11,37 +11,78 @@ const App = () => {
     { id: 5, name: "خواندن زبان ", category: "todo" },
     { id: 6, name: "خواندن زبان h", category: "inProgress" },
   ]);
-  const [category, setCategory] = useState({
+  const [categories, setCategories] = useState({
     todo: [],
     inProgress: [],
     done: [],
   });
+  const [dragData, setDragData] = useState({});
+
+  const handleDragStart = (e, id, category) => {
+    setDragData({ id: id, category: category });
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const changeCategory = (e, taskId, category) => {
+    const newTasks = [...tasks];
+    newTasks[taskId - 1].category = category;
+    setCategories({ todo: [], inProgress: [], done: [] });
+    setTaskToCat();
+  };
+
+  const handleDrop = (e, category) => {
+    const selected = dragData.id;
+    changeCategory(e, selected, category);
+  };
+
   const setTaskToCat = () => {
-    if (category) {
-      tasks.forEach((t) =>
-        setCategory((category) => ({
-          ...category,
-          [t.category]: [
-            ...category[t.category],
-            <ToDo name={t.name} key={t.id} />,
-          ],
-        }))
-      );
-    }
+    tasks.forEach((t) =>
+      setCategories((category) => ({
+        ...category,
+        [t.category]: [
+          ...category[t.category],
+          <ToDo
+            name={t.name}
+            key={t.id}
+            onDragStart={handleDragStart}
+            category={t.category}
+            id={t.id}
+          />,
+        ],
+      }))
+    );
   };
   useEffect(() => {
     setTaskToCat();
   }, []);
-  if (!category) return <p>Loading Please Waite...</p>;
+  if (!categories) return <p>Loading Please Waite...</p>;
   return (
     <div className=" bg-white h-screen w-full p-8 pb-1">
       <h1 className="text-center text-4xl ">لیست انجام کارها</h1>
 
       <ToDoForm />
       <section className="flex flex-col sm:flex-row justify-center items-center h-96  mt-8 ">
-        <ToDoBox category={category.todo} header="لیست کارها " />
-        <ToDoBox category={category.inProgress} header="در حال انجام " />
-        <ToDoBox category={category.done} header=" تمام شده " />
+        <ToDoBox
+          category={categories.todo}
+          header="لیست کارها "
+          onDragOver={handleDragOver}
+          onDrop={(e) => handleDrop(e, "todo")}
+        />
+        <ToDoBox
+          category={categories.inProgress}
+          header="در حال انجام "
+          onDragOver={handleDragOver}
+          onDrop={(e) => handleDrop(e, "inProgress")}
+        />
+        <ToDoBox
+          category={categories.done}
+          header=" تمام شده "
+          onDragOver={handleDragOver}
+          onDrop={(e) => handleDrop(e, "done")}
+        />
       </section>
     </div>
   );
