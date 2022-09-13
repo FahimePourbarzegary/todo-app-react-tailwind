@@ -26,6 +26,7 @@ const App = () => {
     //when information of tasks change
     //then set Task in to correct category
     setTaskToCat();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks]);
 
   const handleDragStart = (e, id, category) => {
