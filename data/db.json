@@ -1,19 +1,24 @@
 {
   "tasks": [
     {
-      "id": 6,
-      "name": "خواندن زبان h",
-      "category": "done"
-    },
-    {
-      "name": "کار4",
-      "category": "done",
-      "id": 7
-    },
-    {
-      "name": "کار1",
+      "name": "تمیز کردن اتاق",
       "category": "todo",
-      "id": 8
+      "id": 1
+    },
+    {
+      "name": "باشگاه",
+      "category": "todo",
+      "id": 2
+    },
+    {
+      "name": "تمرین زبان",
+      "category": "done",
+      "id": 3
+    },
+    {
+      "name": "خواندن کتاب",
+      "category": "inProgress",
+      "id": 4
     }
   ]
 }

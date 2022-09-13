@@ -40,13 +40,10 @@ const App = () => {
   //chage category of task
   const changeCategory = async (e, taskId, category) => {
     const newTasks = [...tasks];
-    newTasks[taskId - 1].category = category;
-    console.log(newTasks[taskId - 1]);
+    const selectedItem = newTasks.filter((t) => t.id === taskId);
+    selectedItem[0].category = category;
     try {
-      await axios.put(
-        `http://localhost:3001/tasks/${taskId}`,
-        newTasks[taskId - 1]
-      );
+      await axios.put(`http://localhost:3001/tasks/${taskId}`, selectedItem[0]);
       const { data } = await axios.get("http://localhost:3001/tasks");
 
       setTasks(data);
@@ -59,7 +56,7 @@ const App = () => {
     const selected = dragData.id;
     changeCategory(e, selected, category);
   };
-  
+
   const setTaskToCat = () => {
     setCategories({ todo: [], inProgress: [], done: [] });
     tasks.forEach((t) =>
@@ -73,7 +70,7 @@ const App = () => {
             onDragStart={handleDragStart}
             category={t.category}
             id={t.id}
-            deleteTaskHandler={()=>deleteTaskHandler(t.id)}
+            deleteTaskHandler={() => deleteTaskHandler(t.id)}
           />,
         ],
       }))
