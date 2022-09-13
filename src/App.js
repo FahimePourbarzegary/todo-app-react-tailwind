@@ -23,10 +23,28 @@ const App = () => {
     getTasks();
   }, []);
   useEffect(() => {
+    const setTaskToCat = () => {
+      setCategories({ todo: [], inProgress: [], done: [] });
+      tasks.forEach((t) =>
+        setCategories((category) => ({
+          ...category,
+          [t.category]: [
+            ...category[t.category],
+            <ToDo
+              name={t.name}
+              key={t.id}
+              onDragStart={handleDragStart}
+              category={t.category}
+              id={t.id}
+              deleteTaskHandler={() => deleteTaskHandler(t.id)}
+            />,
+          ],
+        }))
+      );
+    };
     //when information of tasks change
     //then set Task in to correct category
     setTaskToCat();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks]);
 
   const handleDragStart = (e, id, category) => {
@@ -58,25 +76,7 @@ const App = () => {
     changeCategory(e, selected, category);
   };
 
-  const setTaskToCat = () => {
-    setCategories({ todo: [], inProgress: [], done: [] });
-    tasks.forEach((t) =>
-      setCategories((category) => ({
-        ...category,
-        [t.category]: [
-          ...category[t.category],
-          <ToDo
-            name={t.name}
-            key={t.id}
-            onDragStart={handleDragStart}
-            category={t.category}
-            id={t.id}
-            deleteTaskHandler={() => deleteTaskHandler(t.id)}
-          />,
-        ],
-      }))
-    );
-  };
+  
   //post inf of new task in server
   const postTaskHandler = async (e, task) => {
     e.target.previousSibling.value = "";
